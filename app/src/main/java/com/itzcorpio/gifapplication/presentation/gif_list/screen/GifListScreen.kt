@@ -13,8 +13,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -23,16 +21,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import coil.request.CachePolicy
 import coil.request.ImageRequest
+import com.itzcorpio.gifapplication.domain.model.GifModel
 import com.itzcorpio.gifapplication.presentation.components.GifImage
-import com.itzcorpio.gifapplication.presentation.gif_list.viewmodel.GifViewModel
 
 @Composable
 fun GifListScreen(
-    viewModel: GifViewModel? = null,
-    onShowGiphyDialog: () -> Unit = {}
+    selectedGifs: List<GifModel>,
+    onShowGiphyDialog: () -> Unit
 ) {
-    val selectedGifs by (viewModel?.selectedGifs?.collectAsState() ?: androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf(emptyList()) })
-
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
 
         Spacer(modifier = Modifier.height(16.dp))

@@ -5,6 +5,8 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import com.giphy.sdk.ui.GPHContentType
 import com.giphy.sdk.ui.Giphy
@@ -33,9 +35,10 @@ class MainActivity : AppCompatActivity() {
 
         enableEdgeToEdge()
         setContent {
+            val selectedGifs by viewModel.selectedGifs.collectAsState()
             GifApplicationTheme {
                 GifListScreen(
-                    viewModel = viewModel,
+                    selectedGifs = selectedGifs,
                     onShowGiphyDialog = {
                         showGiphyDialog()
                     }
@@ -74,7 +77,7 @@ class MainActivity : AppCompatActivity() {
 fun GifListScreenPreview() {
     GifApplicationTheme {
         GifListScreen(
-            viewModel = null,
+            selectedGifs = emptyList(),
             onShowGiphyDialog = {}
         )
     }
